@@ -1,0 +1,49 @@
+body {
+  width: 425px;
+  font-size: 15px;
+  user-select: none;
+}
+
+.firefox {
+  font-family: Arial, sans-serif;
+}
+
+.extension-name {
+  color: red;
+  text-align: center;
+}
+
+a {
+  color: blue;
+  text-decoration: none;
+}
+
+.data__flag-template {
+  color: red;
+  padding: 5px;
+}
+
+.data__legend {
+  margin-bottom: 10px;
+}
+
+.header {
+  font-size: 17px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.data__fieldset {
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+.data__flag-input {
+  width: 96%;
+  font-size: 15px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.data__flag-input:not(:placeholder-shown) {
+  text-transform: lowercase;
+}

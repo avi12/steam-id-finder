@@ -1,0 +1,69 @@
+{
+  "name": "steam-id-finder",
+  "version": "0.1.4",
+  "description": "A browser extension that calculates the IDs of given Steam users.",
+  "license": "MIT",
+  "repository": "avi12/steam-id-finder",
+  "homepage": "https://avi12.com",
+  "author": {
+    "name": "avi12",
+    "email": "avi6106@gmail.com"
+  },
+  "bugs": {
+    "email": "avi6106@gmail.com"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "archiver": "^3.0.0",
+    "autoprefixer": "^9.8.4",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "bluebird": "^3.5.4",
+    "chrome-store-update": "^0.2.5",
+    "chrome-webstore-upload": "^0.2.2",
+    "cssnano": "^4.1.10",
+    "eslint": "^5.16.0",
+    "fs-extra": "^9.0.1",
+    "html-minifier": "^4.0.0",
+    "minimatch": "^3.0.4",
+    "minimist": "^1.2.0",
+    "postcss": "^7.0.32",
+    "prettier": "^2.0.5",
+    "recursive-readdir": "^2.2.2",
+    "semistandard": "^14.2.2",
+    "set-json-version": "^1.0.3",
+    "ssri": "^8.0.0",
+    "stylelint": "^13.6.1",
+    "stylelint-config-ccb": "^1.1.0",
+    "terser": "^4.8.0",
+    "web-ext": "^4.3.0",
+    "zip-self": "^0.2.4"
+  },
+  "eslintIgnore": [
+    "dist/*"
+  ],
+  "dependencies": {
+    "bignumber.js": "^9.0.0"
+  },
+  "prettier": {
+    "trailingComma": "none"
+  },
+  "scripts": {
+    "build": "node build",
+    "build-minify": "node build --minify",
+    "pack": "web-ext build --overwrite-dest --artifacts-dir dist_packed --source-dir dist",
+    "pack-self": "zip-self -o dist_packed/steam-id-finder-{version}-source.zip",
+    "pack-opera": "yarn run pack && yarn run pack-stores -s opera",
+    "pack-firefox": "yarn run pack && yarn run pack-stores -s firefox",
+    "build-pack": "yarn run build-minify && yarn run pack && yarn run pack-self",
+    "deploy": "yarn run pack-stores & yarn run pack-self",
+    "run-browser": "web-ext run --no-config-discovery --start-url https://steamcommunity.com/id/avi12 --source-dir dist --verbose --target",
+    "run-firefox": "yarn run-browser firefox-desktop",
+    "run-firefox-android": "yarn run-browser firefox-android",
+    "run-chromium": "yarn run-browser chromium",
+    "lint-css": "stylelint src/**/*.css --fix",
+    "lint-ext": "web-ext lint --source-dir src",
+    "set-version": "set-json-version -f package.json dist/manifest.json src/manifest.json -v"
+  }
+}

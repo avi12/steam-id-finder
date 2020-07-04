@@ -1,0 +1,53 @@
+.steam-ids {
+  max-height: 0;
+  overflow: hidden;
+  transition: 0.5s max-height;
+}
+
+.steam-ids--visible {
+  max-height: 100px;
+}
+
+.steam-ids__id-name {
+  padding: 5px 5px 5px 0;
+}
+
+.steam-ids__id-copy {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.steam-button-copy-ids {
+  z-index: 1;
+  position: relative;
+}
+
+.steam-button-copy-ids--active span {
+  z-index: 3;
+  position: relative;
+  color: white;
+}
+
+.steam-button-copy-ids::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  z-index: 2;
+  transition: opacity 0.25s;
+}
+
+.steam-button-copy-ids--error::before {
+  background: linear-gradient(to bottom, #f5a4a4 5%, #ff0000 95%) !important;
+}
+
+.steam-button-copy-ids--success::before {
+  background: linear-gradient(to bottom, #00ff00 5%, #04a804 95%) !important;
+}
+
+.steam-button-copy-ids--active::before {
+  opacity: 1;
+}

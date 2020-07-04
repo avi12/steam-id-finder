@@ -1,0 +1,31 @@
+# Yarn and npm
+yarn-error.log
+npm-debug.log
+node_modules
+
+# WebStorm files
+.idea/*
+
+# Vim swap files
+*.swp
+*.swo
+
+# Sublime files
+*.sublime-workspace
+
+# Mac and windows files
+.DS_Store
+.tmp
+
+# Grunt files
+.grunt
+.sass-cache
+
+# Distribution directory
+dist
+dist_packed
+
+# Credentials
+credentials.json
+
+src/data/api-key.json
