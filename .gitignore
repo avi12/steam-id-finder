@@ -1,5 +1,4 @@
 # Yarn and npm
-yarn-error.log
 npm-debug.log
 node_modules
 
@@ -26,6 +25,4 @@ dist
 dist_packed
 
 # Credentials
-credentials.json
-
 src/data/api-key.json

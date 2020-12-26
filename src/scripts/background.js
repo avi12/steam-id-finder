@@ -1,34 +1,36 @@
 "use strict";
 
+import {
+  convertId,
+  copy,
+  getStorage,
+  getTextForSingleUser,
+  getUserId
+} from "./utilities";
+import apiKey from "../data/api-key.json"; // https://steamcommunity.com/dev/apikey
+
 chrome.runtime.onInstalled.addListener(async ({ reason }) => {
-  if (reason === "update") {
-    // Transferring the old form of the storage of the
-    // ID generation preferences into the new form (can be seen in "utilities.scripts" in gInitialValues)
-    const generateUserDetails = await getStorage("sync", "generateUserDetails");
-    if (generateUserDetails) {
-      const mapIds = {
-        "Steam ID 2": "id-2",
-        "Steam 32-bit ID": "id-32-bit",
-        steamid: "id-64-bit"
-      };
-
-      const newStorageForIdPreference = [];
-
-      Object.keys(mapIds).forEach((idTypeOld) => {
-        newStorageForIdPreference.push({
-          idType: mapIds[idTypeOld],
-          isGenerate: generateUserDetails[idTypeOld]
-        });
-      });
-      chrome.storage.sync.remove("generateUserDetails");
-      chrome.storage.sync.set({
-        generateSourceModLine: newStorageForIdPreference
-      });
-    }
+  if (reason !== "update") {
+    return;
   }
+
+  const idsSourceMod = await getStorage("sync", "generateSourceModLine");
+  if (!idsSourceMod) {
+    return;
+  }
+
+  const iType = idsSourceMod.findIndex(({ idType }) => idType === "id-2");
+  if (iType <= -1) {
+    return;
+  }
+  idsSourceMod[iType].idType = "id";
+
+  chrome.storage.sync.remove("generateSourceModLine", () => {
+    chrome.storage.sync.set({ idsSourceMod });
+  });
 });
 
-chrome.runtime.onConnect.addListener((port) => {
+chrome.runtime.onConnect.addListener(port => {
   switch (port.name) {
     case "request-data":
       port.onMessage.addListener(async ({ ids }) => {
@@ -37,15 +39,15 @@ chrome.runtime.onConnect.addListener((port) => {
       });
       break;
     case "convert-id":
-      port.onMessage.addListener((object) => {
+      port.onMessage.addListener(object => {
         port.postMessage(convertId(object));
       });
   }
 });
 
 chrome.contextMenus.create({
-  title: "Copy Steam ID 2         - STEAM_X:Y:ZZZZ",
-  id: "id-2",
+  title: "Copy Steam ID            - STEAM_X:Y:ZZZZ",
+  id: "id",
   contexts: ["link"],
   targetUrlPatterns: [
     "https://steamcommunity.com/id/*",
@@ -99,9 +101,6 @@ async function getJson(url) {
  * @returns {Promise<string>} The URL
  */
 async function getUrl({ type, id }) {
-  const apiKey = await getJson(
-    chrome.runtime.getURL("data/api-key.json") // https://steamcommunity.com/dev/apikey
-  );
   switch (type) {
     case "64-bit":
       return `https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001?key=${apiKey}&vanityurl=${id}`;
@@ -148,10 +147,10 @@ async function idsToMultiUserData(ids) {
 
   const promise64bitIds = userIds.map(to64bitID);
   let data = await getUsersData(promise64bitIds);
-  data = data.response.players.map((user) =>
+  data = data.response.players.map(user =>
     Object.assign(user, {
       // Adding the additional IDs to the fetched player object so it's easy to access later
-      "id-2": convertId({ data: user, idDest: "id-2" }),
+      id: convertId({ data: user, idDest: "id" }),
       "id-32-bit": convertId({ data: user, idDest: "id-32-bit" }),
       "id-64-bit": user.steamid
     })

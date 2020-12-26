@@ -1,90 +1,91 @@
 "use strict";
 
-(async () => {
-  if (isPage("user")) {
-    const data = await getCurrentUserData();
+import { convertId, copy, getUserId, mapIdTypesToNames } from "./utilities";
 
-    const userDataToPrint = [
-      {
-        idName: "ID 2",
-        idType: "id-2",
-        data
-      },
-      {
-        idName: "32-bit ID",
-        idType: "id-32-bit",
-        data
-      },
-      {
-        idName: "64-bit ID",
-        idType: "id-64-bit",
-        data
-      }
-    ];
+export async function initUser() {
+  const data = await getCurrentUserData();
+  const userDataToPrint = convertUserIdsWithSourceMod(data);
+  appendUserDataToUI(userDataToPrint);
+  initializeSingleUserEvents();
+}
 
-    appendUserDataToUI(userDataToPrint);
-    initializeSingleUserClickEvents();
-  }
+/**
+ * @returns {Promise<object>} The data of the current user.
+ */
+async function getCurrentUserData() {
+  const id = getUserId(location.href);
+  const port = chrome.runtime.connect({ name: "request-data" });
+  port.postMessage({ ids: [id] });
+  const users = await new Promise(resolve => {
+    port.onMessage.addListener(resolve);
+  });
+  return users[0];
+}
 
-  /**
-   * @returns {Promise<object>} The data of the current user.
-   */
-  async function getCurrentUserData() {
-    const id = getUserId(location.href);
-    const port = chrome.runtime.connect({ name: "request-data" });
-    port.postMessage({ ids: [id] });
-    const users = await new Promise((resolve) => {
-      port.onMessage.addListener(resolve);
-    });
-    return users[0];
-  }
+/**
+ * @param {object} data
+ * @returns {{idType: string, id: string}[]}
+ */
+function convertUserIdsWithSourceMod(data) {
+  const idsToConvertTo = ["id", "id-32-bit", "id-64-bit"];
+  return idsToConvertTo.map(idType => ({
+    idType,
+    id: convertId({ data, idDest: idType })
+  }));
+}
 
-  /**
-   * @param {object[]} ids
-   */
-  function appendUserDataToUI(ids) {
-    const elParent = document.querySelector(".profile_item_links");
+/**
+ * @param {object[]} ids
+ */
+async function appendUserDataToUI(ids) {
+  const elParent = document.querySelector(".profile_item_links");
 
-    const elContainerIds = document.createElement("div");
-    elParent.insertBefore(elContainerIds, elParent.firstElementChild);
+  const elContainerIds = document.createElement("div");
+  elParent.insertBefore(elContainerIds, elParent.firstElementChild);
 
-    elContainerIds.classList.add("steam-ids");
-    elContainerIds.innerHTML = getIdsMarkup(ids);
+  elContainerIds.classList.add("steam-ids");
+  elContainerIds.innerHTML = getIdsMarkup(ids);
+  requestAnimationFrame(() => {
     requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        elContainerIds.classList.add("steam-ids--visible");
-      });
+      elContainerIds.classList.add("steam-ids--visible");
     });
-  }
+  });
+}
 
-  function initializeSingleUserClickEvents() {
-    const elContainerIds = document.querySelector(".steam-ids");
-    elContainerIds.addEventListener("click", ({ target: elId }) => {
-      if (elId.classList.contains("steam-ids__id-copy")) {
-        copy(elId.getAttribute(`data-${elId.dataset.idType}`));
-      }
-    });
-  }
+function initializeSingleUserEvents() {
+  const elContainerIds = document.querySelector(".steam-ids");
+  elContainerIds.addEventListener("click", ({ target: elId }) => {
+    if (!elId.classList.contains("steam-ids__id-copy")) {
+      return;
+    }
+    copy(elId.getAttribute(`data-${elId.dataset.idType}`));
+    elId.style.color = "lime";
+    setTimeout(() => {
+      elId.style.color = "";
+    }, 700);
+  });
+}
 
-  /**
-   * @param {object[]} userDataDetails
-   * @returns {string} The IDs table that's displayed in the user profile.
-   */
-  function getIdsMarkup(userDataDetails) {
-    return `
+/**
+ * @param {object[]} userDataDetails
+ * @returns {string} The IDs table that's displayed in the user profile.
+ */
+function getIdsMarkup(userDataDetails) {
+  return `
     <table>
       ${userDataDetails
-        .map((user) => {
-          const convertedId = convertId({
-            data: user.data,
-            idDest: user.idType
-          });
+        .map(user => {
           return `
         <tr>
-            <td class="steam-ids__id-name">${user.idName}</td>
+            <td class="steam-ids__id-name">${
+              mapIdTypesToNames[user.idType]
+            }</td>
             <td>
-              <!-- prettier-ignore -->
-              <a class="whiteLink steam-ids__id-copy" data-${user.idType}="${convertedId}" data-id-type="${user.idType}">${convertedId}</a>
+              <a class="steam-ids__id-copy whiteLink" data-${user.idType}="${
+            user.id
+          }" data-id-type="${user.idType}">
+                ${user.id}
+              </a>
               <!-- .whiteLink is provided by Steam-->
             </td>
         </tr>
@@ -93,5 +94,4 @@
         .join("")}
 </table>
     `;
-  }
-})();
+}

@@ -1,10 +1,10 @@
 "use strict";
 
-const gInitialValues = {
+export const initial = {
   flag: "",
-  generateSourceModLine: [
+  idsSourceMod: [
     {
-      idType: "id-2",
+      idType: "id",
       isGenerate: true
     },
     {
@@ -18,40 +18,32 @@ const gInitialValues = {
   ]
 };
 
+export const mapIdTypesToNames = {
+  id: "ID",
+  "id-32-bit": "32-bit ID",
+  "id-64-bit": "64-bit ID"
+};
+
 /**
  * Get from the storage. If "key" isn't provided, it will retrieve all the keys from that storage area.
  * @param {"sync"|"local"} storageArea Where to retrieve the value from.
  * @param {string?} key The storage name.
  * @returns {Promise<object?>} The value.
  */
-async function getStorage(storageArea, key) {
-  return new Promise((resolve) => {
-    chrome.storage[storageArea].get(key, (result) => {
+export async function getStorage(storageArea, key) {
+  return new Promise(resolve => {
+    chrome.storage[storageArea].get(key, result => {
       resolve(key ? result[key] : result);
     });
   });
 }
 
 /**
- * Answers whether we're on the page that's matching the parameter.
- * @param {"user"|"friendsManager"} type
- * @returns {boolean}
- */
-function isPage(type) {
-  const pages = {
-    user: ".playerAvatarAutoSizeInner",
-    friendsManager: ".friends_content"
-  };
-
-  return Boolean(document.querySelector(pages[type]));
-}
-
-/**
  * Extracts the ID from the Steam URL.
- * @param {string} url
+ * @param {string} url The user profile's URL.
  * @returns {string} The ID.
  */
-function getUserId(url) {
+export function getUserId(url) {
   const urlMatch = url.match(/(?:profiles|id|u)\/(?<id>[^\/?]+)/);
   return urlMatch.groups.id;
 }
@@ -59,89 +51,106 @@ function getUserId(url) {
 /**
  * Converts to another ID.
  * @param {object} data The user's data object.
- * @param {"id-2"|"id-32-bit"|"id-64-bit"} idDest What the output ID will be,
+ * @param {"id"|"id-32-bit"|"id-64-bit"} idDest What the output ID will be,
  * @returns {string}
  */
-function convertId({ data, idDest }) {
+export function convertId({ data, idDest }) {
   // https://developer.valvesoftware.com/wiki/SteamID
-  const steam64bitIdentifier = new BigNumber("0110000100000000", 16);
+  const steam64bitIdentifier = BigInt("0x0110000100000000");
   const { steamid: id64Bit, communityvisibilitystate } = data;
   switch (idDest) {
-  case "id-2": {
-    const id = new BigNumber(id64Bit);
-    const X = communityvisibilitystate === 3 ? 0 : 1;
-    const Y = id.mod(2);
-    const Z = id.minus(steam64bitIdentifier).dividedToIntegerBy(2);
-    return `STEAM_${X}:${Y}:${Z}`;
-  }
-  case "id-32-bit": {
-    const id = new BigNumber(id64Bit);
-    const Y = id.minus(steam64bitIdentifier);
-    return `[U:1:${Y}]`;
-  }
-  case "id-64-bit":
-    return data.steamid;
+    case "id": {
+      const id = BigInt(id64Bit);
+      const X = communityvisibilitystate === 3 ? 0 : 1;
+      const Y = id % 2n;
+      const Z = (id - steam64bitIdentifier) / 2n;
+      return `STEAM_${X}:${Y}:${Z}`;
+    }
+    case "id-32-bit": {
+      const id = BigInt(id64Bit);
+      const Y = id - steam64bitIdentifier;
+      return `[U:1:${Y}]`;
+    }
+    case "id-64-bit":
+      return id64Bit;
   }
 }
 
 /**
- * @param {string} text
+ * Copy a string to the clipboard.
+ * @param {string} text The string to copy.
  */
-function copy(text) {
-  const elTextarea = document.createElement("textarea");
-  elTextarea.style.position = "fixed";
-  elTextarea.value = text;
-  document.body.append(elTextarea);
-  elTextarea.focus();
-  elTextarea.select();
-  document.execCommand("Copy");
-  elTextarea.remove();
+export function copy(text) {
+  try {
+    navigator.clipboard.writeText(text);
+  } catch {
+    copyFallback(text);
+  }
+}
+
+function copyFallback(text) {
+  try {
+    if (
+      document.queryCommandSupported &&
+      document.queryCommandSupported("copy")
+    ) {
+      const elText = document.createElement("textarea");
+      elText.value = text;
+      elText.style.top = "0";
+      elText.style.left = "0";
+      elText.style.position = "fixed";
+      elText.style.opacity = "0";
+      document.body.appendChild(elText);
+      elText.focus();
+      elText.select();
+      try {
+        document.execCommand("copy");
+      } catch (e) {}
+      elText.remove();
+    }
+  } catch {}
 }
 
 /**
- * @param {object} user
- * @returns {string} Some more data: // {visible user name} ( {profile URL} )
+ * @param {object} user The user object.
+ * @returns {string} Some more data:  // {visible user name} ( {profile URL} )
  */
-function getExtendedData(user) {
+export function getExtendedData(user) {
   return `// ${user.personaname} ( https://steamcommunity.com/profiles/${user.steamid} )`;
 }
 
 /**
  * @param {object[]} usersData
- * @param {"id-2"|"id-32-bit"|"id-64-bit"} idType
+ * @param {"id"|"id-32-bit"|"id-64-bit"} idType
  * @returns {Promise<string>} The text.
  */
-async function getTextForUsers({ usersData, idType }) {
+export async function getTextForUsers({ usersData, idType }) {
   const text = await Promise.all(
-    usersData.map((user) => getTextForSingleUser(user, idType))
+    usersData.map(user => getTextForSingleUser(user, idType))
   );
   return text.join("\n");
 }
 
 /**
  * @param {object} userData
- * @param {"id-2"|"id-32-bit"|"id-64-bit"} idType
+ * @param {"id"|"id-32-bit"|"id-64-bit"} idType
  * @returns {Promise<string>} The text.
  */
-async function getTextForSingleUser(userData, idType) {
+export async function getTextForSingleUser(userData, idType) {
   const {
-    generateSourceModLine = gInitialValues.generateSourceModLine,
-    flag = gInitialValues.flag
+    idsSourceMod = initial.idsSourceMod,
+    flag = initial.flag
   } = await getStorage("sync");
 
   const textArray = [userData[idType]];
 
-  if (flag !== "") {
-    textArray.push(flag);
-  }
-
-  const isSourceModLine = (() => {
-    const { isGenerate } = generateSourceModLine.find(
-      (sourceMod) => sourceMod.idType === idType
-    );
-    return isGenerate;
-  })();
-  if (isSourceModLine) {
+  const { isGenerate } = idsSourceMod.find(
+    sourceMod => sourceMod.idType === idType
+  );
+  if (isGenerate) {
+    if (flag !== "") {
+      textArray.push(flag);
+    }
     textArray.push(getExtendedData(userData));
   }
   return textArray.join(" ");
