@@ -1,3 +1,5 @@
+/* User profile */
+
 .steam-ids {
   max-height: 0;
   overflow: hidden;
@@ -16,6 +18,8 @@
   padding: 5px;
   cursor: pointer;
 }
+
+/* Friends manager */
 
 .steam-button-copy-ids {
   z-index: 1;
@@ -40,14 +44,16 @@
   transition: opacity 0.25s;
 }
 
-.steam-button-copy-ids--error::before {
-  background: linear-gradient(to bottom, #f5a4a4 5%, #ff0000 95%) !important;
-}
-
 .steam-button-copy-ids--success::before {
   background: linear-gradient(to bottom, #00ff00 5%, #04a804 95%) !important;
 }
 
 .steam-button-copy-ids--active::before {
   opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before {
+    transition: 0s !important;
+  }
 }
