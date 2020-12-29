@@ -46,7 +46,7 @@ chrome.runtime.onConnect.addListener(port => {
 });
 
 chrome.contextMenus.create({
-  title: "Copy Steam ID            - STEAM_X:Y:ZZZZ",
+  title: "Copy ID            - STEAM_X:Y:ZZZZ",
   id: "id",
   contexts: ["link"],
   targetUrlPatterns: [
@@ -57,7 +57,7 @@ chrome.contextMenus.create({
 });
 
 chrome.contextMenus.create({
-  title: "Copy Steam 32-bit ID - [U:1:YYYYYYY]",
+  title: "Copy 32-bit ID - [U:1:YYYYYYY]",
   id: "id-32-bit",
   contexts: ["link"],
   targetUrlPatterns: [
@@ -68,7 +68,7 @@ chrome.contextMenus.create({
 });
 
 chrome.contextMenus.create({
-  title: "Copy Steam 64-bit ID - 7656119XXXXXXXXXX",
+  title: "Copy 64-bit ID - 7656119XXXXXXXXXX",
   id: "id-64-bit",
   contexts: ["link"],
   targetUrlPatterns: [
