@@ -12,8 +12,7 @@ You can also generate SourceMod lines for the IDs that you copy.
 Configure your preferences in the pop-up page.
 
 Available
-for [Google Chrome](https://chrome.google.com/webstore/detail/steam-id-finder/iaeodlelphecgkpneeifmgcjgeoobjah)
-, [Mozilla Firefox](https://addons.mozilla.org/addon/steam-id-finder), [Microsoft Edge]().
+for [Google Chrome](https://chrome.google.com/webstore/detail/steam-id-finder/iaeodlelphecgkpneeifmgcjgeoobjah) and [Mozilla Firefox](https://addons.mozilla.org/addon/steam-id-finder).
 
 ## Requirements for setting up
 
