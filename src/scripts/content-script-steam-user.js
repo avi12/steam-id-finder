@@ -1,12 +1,18 @@
 "use strict";
 
-import { convertId, copy, getUserId, mapIdTypesToNames } from "./utilities";
+import {
+  convertId,
+  copy,
+  getTextForSingleUser,
+  getUserId,
+  mapIdTypesToNames
+} from "./utilities";
 
 export async function initUser() {
   const data = await getCurrentUserData();
   const userDataToPrint = convertUserIdsWithSourceMod(data);
   appendUserDataToUI(userDataToPrint);
-  initializeSingleUserEvents();
+  initializeSingleUserEvents(data);
 }
 
 /**
@@ -52,13 +58,14 @@ async function appendUserDataToUI(ids) {
   });
 }
 
-function initializeSingleUserEvents() {
+function initializeSingleUserEvents(userData) {
   const elContainerIds = document.querySelector(".steam-ids");
-  elContainerIds.addEventListener("click", ({ target: elId }) => {
+  elContainerIds.addEventListener("click", async ({ target: elId }) => {
     if (!elId.classList.contains("steam-ids__id-copy")) {
       return;
     }
-    copy(elId.getAttribute(`data-${elId.dataset.idType}`));
+    const text = await getTextForSingleUser(userData, elId.dataset.idType);
+    copy(text);
     elId.style.color = "lime";
     setTimeout(() => {
       elId.style.color = "";
@@ -74,23 +81,20 @@ function getIdsMarkup(userDataDetails) {
   return `
     <table>
       ${userDataDetails
-        .map(user => {
-          return `
+        .map(
+          // prettier-ignore
+          user => `
         <tr>
-            <td class="steam-ids__id-name">${
-              mapIdTypesToNames[user.idType]
-            }</td>
+            <td class="steam-ids__id-name">${mapIdTypesToNames[user.idType]}</td>
             <td>
-              <a class="steam-ids__id-copy whiteLink" data-${user.idType}="${
-            user.id
-          }" data-id-type="${user.idType}">
+              <a class="steam-ids__id-copy whiteLink" data-id-type="${user.idType}">
                 ${user.id}
               </a>
               <!-- .whiteLink is provided by Steam-->
             </td>
         </tr>
-    `;
-        })
+    `
+        )
         .join("")}
 </table>
     `;
