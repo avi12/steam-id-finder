@@ -1,4 +1,4 @@
-## Steam ID Finder
+# Steam ID Finder
 
 A browser extension that calculates the IDs of Steam users, and allows to easily copy them.  
 You can get such IDs from one of the following:
