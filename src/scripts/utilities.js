@@ -75,9 +75,9 @@ export function convertId({ data, idDest }) {
  * Copy a string to the clipboard.
  * @param {string} text The string to copy.
  */
-export function copy(text) {
+export async function copy(text) {
   try {
-    navigator.clipboard.writeText(text);
+    await navigator.clipboard.writeText(text);
   } catch {
     copyFallback(text);
   }
