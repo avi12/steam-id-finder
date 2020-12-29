@@ -4,8 +4,8 @@
     ExpansionPanel,
     ExpansionPanels,
     Icon,
-    TextField,
-    MaterialApp
+    MaterialApp,
+    TextField
   } from "svelte-materialify";
   import { mdiFlag } from "@mdi/js";
 
@@ -54,68 +54,82 @@
   }
 
   $: isFlagValid = rulesFlag.every(rule => rule(flag) === true);
+
+  const browser = (() => {
+    const extensionBaseUrl = chrome.runtime.getURL("");
+    if (extensionBaseUrl.startsWith("moz-extension://")) {
+      return "firefox";
+    }
+    return "chrome";
+  })();
 </script>
 
-<MaterialApp>
-  <h2 class="text-h5 text-center">Steam ID Finder</h2>
-  <div class="h6">
-    Generate a
-    <a
-      href="https://wiki.alliedmods.net/Adding_Admins_(SourceMod)"
-      target="_blank">SourceMod-compatible</a>
-    line for copied IDs
-  </div>
+<div class:firefox={browser === 'firefox'}>
+  <MaterialApp>
+    <h2 class="text-h5 text-center">Steam ID Finder</h2>
+    <div class="h6">
+      Generate a
+      <a
+        href="https://wiki.alliedmods.net/Adding_Admins_(SourceMod)"
+        target="_blank">SourceMod-compatible</a>
+      line for copied IDs
+    </div>
 
-  <div class="mt-4 mb-3">
-    <TextField
-      on:keypress={setFlag}
-      hint="(immunity number:)Flag letter(s)"
-      placeholder="Optional. Press Enter to confirm"
-      class="flag__input"
-      bind:value={flag}
-      rules={rulesFlag}
-      autofocus
-      outlined>
-      <span slot="prepend"><Icon path={mdiFlag} /></span>
-      The flag(s)
-    </TextField>
-  </div>
+    <div class="mt-4 mb-3">
+      <TextField
+        autofocus
+        bind:value={flag}
+        class="flag__input"
+        hint="(immunity number:)Flag letter(s)"
+        on:keypress={setFlag}
+        outlined
+        placeholder="Optional. Press Enter to confirm"
+        rules={rulesFlag}>
+        <span slot="prepend"><Icon path={mdiFlag} /></span>
+        The flag(s)
+      </TextField>
+    </div>
 
-  <ExpansionPanels>
-    <ExpansionPanel>
-      <span slot="header">The template that will be copied</span>
+    <ExpansionPanels>
+      <ExpansionPanel>
+        <span slot="header">The template that will be copied</span>
 
-      <div class="flex-column">
-        <div class="flag__template">
-          &lt;ID&gt;
-          {(flag && flag.toLowerCase()) || '[Flag]'}
-          // &lt;Steam name&gt; &lt;Profile link&gt;
+        <div class="flex-column">
+          <div class="flag__template">
+            &lt;ID&gt;
+            {(flag && flag.toLowerCase()) || '[Flag]'}
+            // &lt;Steam name&gt; &lt;Profile link&gt;
+          </div>
+
+          <div>
+            Legend: [<abbr title="Not generated if blank">Optional</abbr>] &lt;<abbr
+              title="Always generated">Generated for selected ID{idsSelected.length > 1 ? 's' : ''}</abbr>&gt;
+          </div>
         </div>
+      </ExpansionPanel>
+    </ExpansionPanels>
 
-        <div>
-          Legend: [<abbr title="Not generated if blank">Optional</abbr>] &lt;<abbr
-            title="Always generated">Generated for selected ID{idsSelected.length > 1 ? 's' : ''}</abbr>&gt;
-        </div>
-      </div>
-    </ExpansionPanel>
-  </ExpansionPanels>
+    <div class="mt-3">When copying, attach the template to the IDs:</div>
 
-  <div class="mt-3">When copying, attach the template to the IDs:</div>
-
-  {#each idsSourceMod as { idType }}
-    <Checkbox bind:group={idsSelected} value={idType}>
-      {mapIdTypesToNames[idType]}
-      e.g.
-      {idExamples[idType]}
-    </Checkbox>
-  {/each}
-</MaterialApp>
+    {#each idsSourceMod as { idType }}
+      <Checkbox bind:group={idsSelected} value={idType}>
+        {mapIdTypesToNames[idType]}
+        e.g.
+        {idExamples[idType]}
+      </Checkbox>
+    {/each}
+  </MaterialApp>
+</div>
 
 <style>
   :global(body) {
     width: 425px;
     font-size: 1rem;
     padding: 15px;
+  }
+
+  .firefox {
+    height: 400px !important;
   }
 
   :global(.flag__input input:not(:placeholder-shown)) {
