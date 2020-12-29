@@ -118,7 +118,7 @@
     padding: 15px;
   }
 
-  :global(.flag__input input) {
+  :global(.flag__input input:not(:placeholder-shown)) {
     text-transform: lowercase;
   }
 
