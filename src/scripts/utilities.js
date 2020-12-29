@@ -1,5 +1,7 @@
 "use strict";
 
+import SteamID from "steamid";
+
 export const initial = {
   flag: "",
   idsSourceMod: [
@@ -56,23 +58,16 @@ export function getUserId(url) {
  */
 export function convertId({ data, idDest }) {
   // https://developer.valvesoftware.com/wiki/SteamID
-  const steam64bitIdentifier = BigInt("0x0110000100000000");
-  const { steamid: id64Bit, communityvisibilitystate } = data;
+  const steamId = new SteamID(data.steamid);
   switch (idDest) {
-    case "id": {
-      const id = BigInt(id64Bit);
-      const X = communityvisibilitystate === 3 ? 0 : 1;
-      const Y = id % 2n;
-      const Z = (id - steam64bitIdentifier) / 2n;
-      return `STEAM_${X}:${Y}:${Z}`;
-    }
-    case "id-32-bit": {
-      const id = BigInt(id64Bit);
-      const Y = id - steam64bitIdentifier;
-      return `[U:1:${Y}]`;
-    }
+    case "id":
+      return steamId.getSteam2RenderedID();
+
+    case "id-32-bit":
+      return steamId.getSteam3RenderedID();
+
     case "id-64-bit":
-      return id64Bit;
+      return steamId.getSteamID64();
   }
 }
 
@@ -90,23 +85,20 @@ export function copy(text) {
 
 function copyFallback(text) {
   try {
-    if (
-      document.queryCommandSupported &&
-      document.queryCommandSupported("copy")
-    ) {
-      const elText = document.createElement("textarea");
-      elText.value = text;
-      elText.style.top = "0";
-      elText.style.left = "0";
-      elText.style.position = "fixed";
-      elText.style.opacity = "0";
-      document.body.appendChild(elText);
-      elText.focus();
-      elText.select();
+    if (document?.queryCommandSupported("copy")) {
+      const elTextarea = document.createElement("textarea");
+      elTextarea.value = text;
+      elTextarea.style.top = "0";
+      elTextarea.style.left = "0";
+      elTextarea.style.position = "fixed";
+      elTextarea.style.opacity = "0";
+      document.body.append(elTextarea);
+      elTextarea.focus();
+      elTextarea.select();
       try {
         document.execCommand("copy");
-      } catch (e) {}
-      elText.remove();
+      } catch {}
+      elTextarea.remove();
     }
   } catch {}
 }
