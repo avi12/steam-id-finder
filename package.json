@@ -12,6 +12,21 @@
   "bugs": {
     "email": "avi6106@gmail.com"
   },
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "pack": "web-ext build --overwrite-dest --artifacts-dir dist_packed --source-dir dist",
+    "pack-self": "zip-self -o dist_packed/steam_id_finder-{version}-source.zip",
+    "build-pack": "pnpm run build && pnpm run pack && pnpm run pack-stores && pnpm run pack-self",
+    "set-version": "set-json-version -f package.json src/manifest.json -v",
+    "validate": "svelte-check",
+    "run-browser": "web-ext run --no-config-discovery --start-url https://steamcommunity.com/id/avi12 --source-dir dist --verbose --target",
+    "run-firefox": "pnpm run-browser firefox-desktop",
+    "run-chromium": "pnpm run-browser chromium"
+  },
+  "dependencies": {
+    "steamid": "^1.1.3"
+  },
   "devDependencies": {
     "@mdi/js": "^5.8.55",
     "@rollup/plugin-commonjs": "^17.0.0",
@@ -40,20 +55,5 @@
     "arrowParens": "avoid",
     "singleQuote": false,
     "svelteSortOrder": "scripts-markup-styles"
-  },
-  "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "pack": "web-ext build --overwrite-dest --artifacts-dir dist_packed --source-dir dist",
-    "pack-self": "zip-self -o dist_packed/steam_id_finder-{version}-source.zip",
-    "build-pack": "pnpm run build && pnpm run pack && pnpm run pack-stores && pnpm run pack-self",
-    "set-version": "set-json-version -f package.json src/manifest.json -v",
-    "validate": "svelte-check",
-    "run-browser": "web-ext run --no-config-discovery --start-url https://steamcommunity.com/id/avi12 --source-dir dist --verbose --target",
-    "run-firefox": "pnpm run-browser firefox-desktop",
-    "run-chromium": "pnpm run-browser chromium"
-  },
-  "dependencies": {
-    "steamid": "^1.1.3"
   }
 }
