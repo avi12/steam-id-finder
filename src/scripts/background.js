@@ -7,7 +7,8 @@ import {
   getTextForSingleUser,
   getUserId
 } from "./utilities";
-import apiKey from "../data/api-key.json"; // https://steamcommunity.com/dev/apikey
+import apiKey from "../data/api-key.json";
+import SteamID from "steamid";
 
 chrome.runtime.onInstalled.addListener(async ({ reason }) => {
   if (reason !== "update") {
@@ -101,6 +102,7 @@ async function getJson(url) {
  * @returns {Promise<string>} The URL
  */
 async function getUrl({ type, id }) {
+  // https://steamcommunity.com/dev/apikey
   switch (type) {
     case "64-bit":
       return `https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001?key=${apiKey}&vanityurl=${id}`;
@@ -114,16 +116,17 @@ async function getUrl({ type, id }) {
  * @returns {Promise<{response: {steamid: string}|object}>}
  */
 async function to64bitID(id) {
-  const is64BitId = id.match(/^7656119\d{10}$/);
-  if (is64BitId) {
+  try {
+    new SteamID(id);
     return {
       response: {
         steamid: id
       }
     };
+  } catch {
+    const url = await getUrl({ type: "64-bit", id });
+    return getJson(url);
   }
-  const url = await getUrl({ type: "64-bit", id });
-  return getJson(url);
 }
 
 /**
@@ -146,14 +149,12 @@ async function idsToMultiUserData(ids) {
   const userIds = [...ids];
 
   const promise64bitIds = userIds.map(to64bitID);
-  let data = await getUsersData(promise64bitIds);
-  data = data.response.players.map(user =>
-    Object.assign(user, {
-      // Adding the additional IDs to the fetched player object so it's easy to access later
-      id: convertId({ data: user, idDest: "id" }),
-      "id-32-bit": convertId({ data: user, idDest: "id-32-bit" }),
-      "id-64-bit": user.steamid
-    })
-  );
-  return data;
+  const data = await getUsersData(promise64bitIds);
+  return data.response.players.map(user => ({
+    ...user,
+    // Adding the additional IDs to the fetched player object so it's easy to access later
+    id: convertId({ data: user, idDest: "id" }),
+    "id-32-bit": convertId({ data: user, idDest: "id-32-bit" }),
+    "id-64-bit": user.steamid
+  }));
 }
