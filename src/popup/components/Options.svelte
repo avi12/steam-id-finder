@@ -33,11 +33,18 @@
     });
   }
 
+  const rulesFlag = [
+    flag =>
+      flag === "" ||
+      Boolean(flag.match(/^(\d+:)?[abcdefghijklmnzopqrst]+$/i)) ||
+      ""
+  ];
+
   function setFlag({ target: elText, key }) {
-    if (key !== "Enter") {
+    if (key !== "Enter" || !isFlagValid) {
       return;
     }
-    chrome.storage.sync.set({ flag });
+    chrome.storage.sync.set({ flag: flag.toLowerCase() });
     elText.style.transition = "";
     elText.style.background = "lime";
     setTimeout(() => {
@@ -45,6 +52,8 @@
       elText.style.background = "";
     }, 500);
   }
+
+  $: isFlagValid = rulesFlag.every(rule => rule(flag) === true);
 </script>
 
 <MaterialApp>
@@ -62,7 +71,10 @@
       on:keypress={setFlag}
       hint="(immunity number:)Flag letter(s)"
       placeholder="Optional. Press Enter to confirm"
+      class="flag__input"
       bind:value={flag}
+      rules={rulesFlag}
+      autofocus
       outlined>
       <span slot="prepend"><Icon path={mdiFlag} /></span>
       The flag(s)
@@ -82,7 +94,7 @@
 
         <div>
           Legend: [<abbr title="Not generated if blank">Optional</abbr>] &lt;<abbr
-            title="Always generated">Generated for selected ID{idsSelected.length === 1 ? '' : 's'}</abbr>&gt;
+            title="Always generated">Generated for selected ID{idsSelected.length > 1 ? 's' : ''}</abbr>&gt;
         </div>
       </div>
     </ExpansionPanel>
@@ -106,12 +118,31 @@
     padding: 15px;
   }
 
+  :global(.flag__input input) {
+    text-transform: lowercase;
+  }
+
   .flag__template {
     color: red;
   }
 
-  abbr {
+  abbr[title] {
     text-decoration: none;
     border-bottom: 1px dotted;
+  }
+
+  :global(.s-text-field__wrapper.outlined:focus-within::before) {
+    border-width: 1px !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(*),
+    :global(::before),
+    :global(::after) {
+      animation-delay: -1ms !important;
+      animation-duration: 1ms !important;
+      scroll-behavior: auto !important;
+      transition: 0s !important;
+    }
   }
 </style>
