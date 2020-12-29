@@ -29,6 +29,7 @@ export default {
       dedupe: ["svelte"],
     }),
     commonjs(),
+    resolve(),
     svelte({
       compilerOptions: {
         dev: !production,
