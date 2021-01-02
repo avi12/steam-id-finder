@@ -7,7 +7,7 @@ import {
   getTextForSingleUser,
   getUserId
 } from "./utilities";
-import apiKey from "../data/api-key.json";
+import apiKey from "../../dist/data/api-key.json";
 import SteamID from "steamid";
 
 chrome.runtime.onInstalled.addListener(async ({ reason }) => {
