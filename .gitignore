@@ -21,8 +21,8 @@ node_modules
 .sass-cache
 
 # Distribution directory
-dist
+dist/build
 dist_packed
 
 # Credentials
-src/data/api-key.json
+dist/data/api-key.json
