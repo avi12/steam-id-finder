@@ -22,7 +22,8 @@
     "validate": "svelte-check",
     "run-browser": "web-ext run --no-config-discovery --start-url https://steamcommunity.com/id/avi12 --source-dir dist --verbose --target",
     "run-firefox": "pnpm run-browser firefox-desktop",
-    "run-chromium": "pnpm run-browser chromium"
+    "run-chromium": "pnpm run-browser chromium",
+    "run-edge-windows": "\"\"%ProgramFiles(x86)%\\Microsoft\\Edge\\Application\\msedge.exe\"\" https://steamcommunity.com/id/avi12 --load-extension=%cd%\\dist"
   },
   "dependencies": {
     "steamid": "^1.1.3"

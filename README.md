@@ -50,6 +50,11 @@ pnpm run-chromium
 pnpm run-firefox
 ```
 
+### Edge on Windows 10
+```shell
+pnpm run-edge-windows
+```
+
 ### Other browsers
 
 1. Open the extensions page in your browser.
