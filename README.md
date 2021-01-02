@@ -18,7 +18,7 @@ for [Google Chrome](https://chrome.google.com/webstore/detail/steam-id-finder/ia
 
 1. Install [Node.js](https://nodejs.org) and [PNPM](https://pnpm.js.org/en/installation).
 1. Register a [Steam Web API Key](https://steamcommunity.com/dev/apikey).
-1. Create in `src/data` a file `api-key.json`, and simply put it as a string, e.g.
+1. Create in `dist/data` a file `api-key.json`, and simply put it as a string, e.g.
 
 ```json
 "Your API key"
