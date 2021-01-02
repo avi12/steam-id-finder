@@ -16,7 +16,7 @@
   },
   "browser_action": {
     "default_title": "Steam ID Finder Settings",
-    "default_popup": "popup/popup.html",
+    "default_popup": "popup.html",
     "default_icon": {
       "16": "images/icon-16.png",
       "19": "images/icon-19.png",
@@ -35,12 +35,12 @@
         "https://steamcommunity.com/id/*",
         "https://steamcommunity.com/profiles/*"
       ],
-      "js": ["scripts/content-script-steam-initialize.js"],
-      "css": ["styles-injected/main.css"]
+      "js": ["build/scripts/content-script-steam-initialize.js"],
+      "css": ["build/styles-injected/main.css"]
     }
   ],
   "background": {
-    "scripts": ["scripts/background.js"],
+    "scripts": ["build/scripts/background.js"],
     "persistent": false
   },
   "permissions": [
