@@ -1,6 +1,6 @@
 {
   "name": "steam-id-finder",
-  "version": "0.2",
+  "version": "0.2.1",
   "description": "A browser extension that calculates the IDs of given Steam users.",
   "license": "MIT",
   "repository": "avi12/steam-id-finder",
