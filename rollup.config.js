@@ -24,11 +24,7 @@ function createConfig(filename, useSvelte = false) {
           compilerOptions: {
             dev: !isProduction
           },
-          preprocess: preprocess({
-            scss: {
-              includePaths: ["theme"]
-            }
-          })
+          preprocess: preprocess()
           // we'll extract any component CSS out into
           // a separate file - better for performance
         }),
