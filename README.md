@@ -17,6 +17,15 @@ Available for:
 - [Microsoft Edge](https://microsoftedge.microsoft.com/addons/detail/ahaecgaddckjclinfblgjlejhcpgeebk)
 - [Opera](https://addons.opera.com/en/extensions/details/steam-id-finder)
 
+<details>
+<summary>Screenshots</summary>
+<br>
+  <img src="https://avi12.com/assets/img/screenshots/steam-id-finder/steam-id-finder_1_content-script.png" alt="ID links show in the user page">
+  <img src="https://avi12.com/assets/img/screenshots/steam-id-finder/steam-id-finder_2_context-menu.png" alt="Context menu">
+  <img src="https://avi12.com/assets/img/screenshots/steam-id-finder/steam-id-finder_3_content-script.png" alt="Copy a batch of IDs in the Your Friends page" width="640" height="400">
+  <img src="https://avi12.com/assets/img/screenshots/steam-id-finder/steam-id-finder_4_popup_chrome.png" alt="Popup page">
+</details>
+
 ## Requirements for setting up
 
 1. Install [Node.js](https://nodejs.org) and [PNPM](https://pnpm.js.org/en/installation).
