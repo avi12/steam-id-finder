@@ -11,8 +11,11 @@ You can get such IDs from one of the following:
 You can also generate SourceMod lines for the IDs that you copy.  
 Configure your preferences in the pop-up page.
 
-Available
-for [Google Chrome](https://chrome.google.com/webstore/detail/steam-id-finder/iaeodlelphecgkpneeifmgcjgeoobjah) and [Mozilla Firefox](https://addons.mozilla.org/addon/steam-id-finder).
+Available for:
+- [Google Chrome](https://chrome.google.com/webstore/detail/iaeodlelphecgkpneeifmgcjgeoobjah) ![Chrome Web Store](https://img.shields.io/chrome-web-store/users/iaeodlelphecgkpneeifmgcjgeoobjah?color=white&label=users&style=flat-square)
+- [Mozilla Firefox](https://addons.mozilla.org/addon/steam-id-finder) ![Mozilla Add-on](https://img.shields.io/amo/users/steam-id-finder?color=white&label=users&style=flat-square)
+- [Microsoft Edge](https://microsoftedge.microsoft.com/addons/detail/ahaecgaddckjclinfblgjlejhcpgeebk)
+- [Opera](https://addons.opera.com/en/extensions/details/steam-id-finder)
 
 ## Requirements for setting up
 
