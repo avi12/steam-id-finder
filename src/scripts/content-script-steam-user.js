@@ -43,7 +43,7 @@ function convertUserIdsWithSourceMod(data) {
 /**
  * @param {object[]} ids
  */
-async function appendUserDataToUI(ids) {
+function appendUserDataToUI(ids) {
   const elParent = document.querySelector(".profile_item_links");
 
   const elContainerIds = document.createElement("div");
