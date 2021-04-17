@@ -26,3 +26,4 @@ dist_packed
 
 # Credentials
 dist/data/api-key.json
+*.env
