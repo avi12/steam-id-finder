@@ -45,10 +45,7 @@ function createConfig(filename, useSvelte = false) {
       // If we're building for production (npm run build
       // instead of npm run dev), minify
       isProduction && terser()
-    ],
-    watch: {
-      clearScreen: false
-    }
+    ]
   };
 }
 
