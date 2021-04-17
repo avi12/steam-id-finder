@@ -69,9 +69,6 @@ function createConfigCss(filename) {
 export default [
   createConfig("popup/popup", true),
   createConfig("scripts/background"),
-  createConfig("scripts/content-script-steam-friends-manager"),
   createConfig("scripts/content-script-steam-initialize"),
-  createConfig("scripts/content-script-steam-user"),
-  createConfig("scripts/utilities"),
   createConfigCss("main")
 ];
