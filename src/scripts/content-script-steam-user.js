@@ -66,6 +66,8 @@ function initializeSingleUserEvents(userData) {
     }
     const text = await getTextForSingleUser(userData, elId.dataset.idType);
     copy(text);
+
+    elId.style.transition = "0.25s color";
     elId.style.color = "lime";
     setTimeout(() => {
       elId.style.color = "";
@@ -90,7 +92,7 @@ function getIdsMarkup(userDataDetails) {
               <a class="steam-ids__id-copy whiteLink" data-id-type="${user.idType}">
                 ${user.id}
               </a>
-              <!-- .whiteLink is provided by Steam-->
+              <!-- .whiteLink is provided by Steam -->
             </td>
         </tr>
     `
