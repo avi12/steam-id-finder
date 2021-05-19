@@ -21,7 +21,7 @@ Available for:
 <summary>Screenshots</summary>
 <br>
   <img src="https://avi12.com/assets/img/screenshots/steam-id-finder/steam-id-finder_1_content-script.png" alt="ID links show in the user page">
-  <img src="https://avi12.com/assets/img/screenshots/steam-id-finder/steam-id-finder_2_context-menu.png" alt="Context menu">
+  <img src="https://avi12.com/assets/img/screenshots/steam-id-finder/steam-id-finder_2_context-menu_chrome.png" alt="Context menu">
   <img src="https://avi12.com/assets/img/screenshots/steam-id-finder/steam-id-finder_3_content-script.png" alt="Copy a batch of IDs in the Your Friends page" width="640" height="400">
   <img src="https://avi12.com/assets/img/screenshots/steam-id-finder/steam-id-finder_4_popup_chrome.png" alt="Popup page">
 </details>
