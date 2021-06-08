@@ -11,7 +11,10 @@ import {
 export async function initUser() {
   const data = await getCurrentUserData();
   const userDataToPrint = convertUserIdsWithSourceMod(data);
-  appendUserDataToUI(userDataToPrint);
+  appendUserDataToUI({
+    ids: userDataToPrint,
+    isPrivate: data.personastate === 0
+  });
   initializeSingleUserEvents(data);
 }
 
@@ -40,14 +43,37 @@ function convertUserIdsWithSourceMod(data) {
   }));
 }
 
+function createMarkup() {
+  const elParent = document.querySelector(".profile_content");
+  elParent.innerHTML += `
+<div class="profile_content_inner">
+  <div class="profile_leftcol">&nbsp;</div>
+  <div class="profile_rightcol"></div>
+</div>
+  `;
+}
+
 /**
  * @param {object[]} ids
+ * @param {boolean} isPrivate
  */
-function appendUserDataToUI(ids) {
-  const elParent = document.querySelector(".profile_item_links");
+function appendUserDataToUI({ ids, isPrivate }) {
+  let elParent = document.querySelector(
+    ".profile_item_links, .profile_content_rightcol"
+  );
+
+  if (isPrivate) {
+    createMarkup();
+    elParent = document.querySelector(".profile_rightcol");
+  }
 
   const elContainerIds = document.createElement("div");
-  elParent.insertBefore(elContainerIds, elParent.firstElementChild);
+  const isUserVacBanned = document.querySelector(".profile_ban_status");
+  if (!isPrivate && !isUserVacBanned) {
+    elParent.insertBefore(elContainerIds, elParent.firstElementChild);
+  } else {
+    elParent.append(elContainerIds);
+  }
 
   elContainerIds.classList.add("steam-ids");
   elContainerIds.innerHTML = getIdsMarkup(ids);
