@@ -2,7 +2,7 @@
   "name": "Steam ID Finder",
   "description": "Display Steam users' IDs. One-click to copy.",
   "manifest_version": 2,
-  "version": "0.2.2",
+  "version": "0.2.3",
   "icons": {
     "16": "images/icon-16.png",
     "19": "images/icon-19.png",
