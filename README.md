@@ -14,7 +14,7 @@ Configure your preferences in the pop-up page.
 Available for:
 - [Google Chrome](https://chrome.google.com/webstore/detail/iaeodlelphecgkpneeifmgcjgeoobjah) ![Chrome Web Store](https://img.shields.io/chrome-web-store/users/iaeodlelphecgkpneeifmgcjgeoobjah?color=white&label=users&style=flat-square)
 - [Mozilla Firefox](https://addons.mozilla.org/addon/steam-id-finder) ![Mozilla Add-on](https://img.shields.io/amo/users/steam-id-finder?color=white&label=users&style=flat-square)
-- [Microsoft Edge](https://microsoftedge.microsoft.com/addons/detail/ahaecgaddckjclinfblgjlejhcpgeebk)
+- [Microsoft Edge](https://microsoftedge.microsoft.com/addons/detail/ahaecgaddckjclinfblgjlejhcpgeebk) ![users count](https://img.shields.io/badge/dynamic/json?label=users&query=activeInstallCount&style=flat-square&color=white&url=https://microsoftedge.microsoft.com/addons/getproductdetailsbycrxid/ahaecgaddckjclinfblgjlejhcpgeebk)
 - [Opera](https://addons.opera.com/en/extensions/details/steam-id-finder)
 
 <details>
