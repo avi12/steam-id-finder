@@ -13,7 +13,7 @@ export async function initUser() {
   const userDataToPrint = convertUserIdsWithSourceMod(data);
   appendUserDataToUI({
     ids: userDataToPrint,
-    isPrivate: data.personastate === 0
+    isPrivate: data.communityvisibilitystate !== 3
   });
   initializeSingleUserEvents(data);
 }
@@ -68,11 +68,11 @@ function appendUserDataToUI({ ids, isPrivate }) {
   }
 
   const elContainerIds = document.createElement("div");
-  const isUserVacBanned = document.querySelector(".profile_ban_status");
-  if (!isPrivate && !isUserVacBanned) {
-    elParent.insertBefore(elContainerIds, elParent.firstElementChild);
-  } else {
+  const isUserVacBanned = Boolean(document.querySelector(".profile_ban_status"));
+  if (isPrivate || isUserVacBanned) {
     elParent.append(elContainerIds);
+  } else {
+    elParent.insertBefore(elContainerIds, elParent.firstElementChild);
   }
 
   elContainerIds.classList.add("steam-ids");
