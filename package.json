@@ -2,8 +2,8 @@
   "name": "steam-id-finder",
   "version": "1.0.0",
   "description": "A browser extension that calculates the IDs of given Steam users.",
-  "license": "GPL-3.0-or-later",
   "repository": "https://github.com/avi12/steam-id-finder",
+  "license": "GPL-3.0-or-later",
   "author": "avi12 <avi6106@gmail.com>",
   "homepage": "https://avi12.com",
   "bugs": {
