@@ -3,15 +3,16 @@
 A browser extension that calculates the IDs of Steam users, and allows to easily copy them.  
 You can get such IDs from one of the following:
 
-* A user profile (https://steamcommunity.com/id/customURL or http://steamcommunity.com/profiles/64-bit_ID)
-* Your Friends page (https://steamcommunity.com/id/customURL/friends
+- A user profile (https://steamcommunity.com/id/customURL or http://steamcommunity.com/profiles/64-bit_ID)
+- Your Friends page (https://steamcommunity.com/id/customURL/friends
   or https://steamcommunity.com/profiles/64-bit_ID/friends)
-* Context menu
+- Context menu
 
 You can also generate SourceMod lines for the IDs that you copy.  
 Configure your preferences in the pop-up page.
 
 Available for:
+
 - [Google Chrome](https://chrome.google.com/webstore/detail/iaeodlelphecgkpneeifmgcjgeoobjah) ![Chrome Web Store](https://img.shields.io/chrome-web-store/users/iaeodlelphecgkpneeifmgcjgeoobjah?color=white&label=users&style=flat-square)
 - [Mozilla Firefox](https://addons.mozilla.org/addon/steam-id-finder) ![Mozilla Add-on](https://img.shields.io/amo/users/steam-id-finder?color=white&label=users&style=flat-square)
 - [Microsoft Edge](https://microsoftedge.microsoft.com/addons/detail/ahaecgaddckjclinfblgjlejhcpgeebk) ![users count](https://img.shields.io/badge/dynamic/json?label=users&query=activeInstallCount&style=flat-square&color=white&url=https://microsoftedge.microsoft.com/addons/getproductdetailsbycrxid/ahaecgaddckjclinfblgjlejhcpgeebk)
@@ -57,6 +58,7 @@ pnpm run-chromium
 ```
 
 ### Edge on Windows 10/11
+
 ```shell
 pnpm run-edge-windows
 ```
@@ -69,16 +71,19 @@ pnpm run-edge-windows
 4. Either drag-drop the browser-compatible ZIP onto the browser or click "Load unpacked extension" and choose it.
 
 ## Build & pack
+
 ```shell
 pnpm build-pack
 ```
 
 ### Build for Firefox (run `pnpm build-pack` first)
+
 ```shell
 pnpm build-for-firefox
 ```
 
 ### Build for Opera (run `pnpm build-pack` first)
+
 ```shell
 pnpm build-for-opera
 ```
