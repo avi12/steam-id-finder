@@ -56,29 +56,33 @@ pnpm dev
 pnpm run-chromium
 ```
 
-### Firefox
-
-```shell script
-pnpm run-firefox
-```
-
-### Edge on Windows 10
+### Edge on Windows 10/11
 ```shell
 pnpm run-edge-windows
 ```
 
-### Other browsers
+### Browsers that don't support Manifest v3
 
-1. Open the extensions page in your browser.
-1. Enable the developer tools (top-right corner usually).
-1. Either drag-drop the `dist` folder onto the browser or click "Load unpacked extension" and choose it.
+1. Build the extension for Firefox/Opera (see below).
+2. Open the extensions page in your browser.
+3. Enable the developer tools (top-right corner usually).
+4. Either drag-drop the browser-compatible ZIP onto the browser or click "Load unpacked extension" and choose it.
 
-## Build & package
+## Build & pack
 ```shell
 pnpm build-pack
 ```
 
+## Build for Firefox (run `pnpm build-pack` first)
+```shell
+pnpm build-for-firefox
+```
+
+## Build for Opera (run `pnpm build-pack` first)
+```shell
+pnpm build-for-opera
+```
+
 ## Do you want to contribute?
 
-Feel free to!  
-If you want to fork, just make sure to credit me and link this repository and [my website](https://avi12.com).
+Feel free to! Make sure to comply with the license, [GPL v3](https://github.com/avi12/steam-id-finder/blob/main/LICENSE).
