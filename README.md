@@ -36,7 +36,7 @@ Available for:
 "Your API key"
 ```
 
-## Download dev dependencies
+## Download dependencies
 
 ```shell script
 pnpm i
