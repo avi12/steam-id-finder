@@ -41,7 +41,7 @@
   },
   "permissions": ["contextMenus", "storage"],
   "host_permissions": ["https://api.steampowered.com/ISteamUser/*"],
-  "applications": {
+  "browser_specific_settings": {
     "gecko": {
       "id": "Steam_ID_Finder@gmail.com"
     }
