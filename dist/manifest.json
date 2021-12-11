@@ -1,8 +1,14 @@
 {
   "name": "Steam ID Finder",
+  "short_name": "Steam ID",
   "description": "Display Steam users' IDs. One-click to copy.",
-  "manifest_version": 3,
   "version": "1.0.0",
+  "manifest_version": 3,
+  "author": "avi12",
+  "developer": {
+    "name": "avi12",
+    "url": "https://avi12.com/skillshare-player-control"
+  },
   "icons": {
     "16": "images/icon-16.png",
     "19": "images/icon-19.png",
