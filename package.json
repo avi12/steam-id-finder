@@ -1,14 +1,11 @@
 {
   "name": "steam-id-finder",
-  "version": "0.2.4",
+  "version": "1.0.0",
   "description": "A browser extension that calculates the IDs of given Steam users.",
-  "license": "MIT",
-  "repository": "avi12/steam-id-finder",
+  "license": "GPL-3.0-or-later",
+  "repository": "https://github.com/avi12/steam-id-finder",
+  "author": "avi12 <avi6106@gmail.com>",
   "homepage": "https://avi12.com",
-  "author": {
-    "name": "avi12",
-    "email": "avi6106@gmail.com"
-  },
   "bugs": {
     "email": "avi6106@gmail.com"
   },
@@ -16,6 +13,8 @@
     "dev": "rollup -c -w",
     "build": "rollup -c",
     "pack": "web-ext build --overwrite-dest --artifacts-dir dist_packed --source-dir dist --filename steam_id_finder-{version}.zip",
+    "build-for-firefox": "build-for-browser --i dist_packed/steam_id_finder-{version}.zip --browser=firefox",
+    "build-for-opera": "build-for-browser --i dist_packed/steam_id_finder-{version}.zip --browser=opera",
     "pack-self": "zip-self -o dist_packed/steam_id_finder-{version}-source.zip",
     "build-pack": "pnpm run build && pnpm run pack && pnpm run pack-self",
     "set-version": "set-json-version -f package.json dist/manifest.json -v",
@@ -26,33 +25,42 @@
     "run-edge-windows": "\"\"%ProgramFiles(x86)%\\Microsoft\\Edge\\Application\\msedge.exe\"\" https://steamcommunity.com/id/avi12 --load-extension=%cd%\\dist"
   },
   "dependencies": {
-    "steamid": "^1.1.3"
+    "steamid": "^2.0.0"
   },
   "devDependencies": {
-    "@mdi/js": "^5.9.55",
-    "@rollup/plugin-commonjs": "^19.0.1",
+    "@mdi/js": "^6.5.95",
+    "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^13.0.2",
-    "postcss": "^8.3.5",
-    "prettier": "^2.3.2",
-    "prettier-plugin-svelte": "^2.3.1",
-    "rollup": "^2.53.2",
+    "@rollup/plugin-node-resolve": "^13.0.6",
+    "@rollup/plugin-typescript": "^8.3.0",
+    "@sveltejs/eslint-config": "github:sveltejs/eslint-config",
+    "@tsconfig/svelte": "^2.0.1",
+    "@types/chrome": "^0.0.166",
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0",
+    "build-for-browser": "github:avi12/build-for-browser",
+    "eslint": "^8.3.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0",
+    "eslint-plugin-svelte3": "^3.2.1",
+    "postcss": "^8.4.4",
+    "prettier-plugin-svelte": "^2.5.0",
+    "rollup": "^2.60.2",
+    "rollup-plugin-chrome-extension": "^3.6.6",
     "rollup-plugin-css-only": "^3.1.0",
-    "rollup-plugin-postcss": "^4.0.0",
+    "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-svelte": "^7.1.0",
     "rollup-plugin-terser": "^7.0.2",
-    "sass": "^1.35.2",
-    "set-json-version": "^1.0.6",
-    "svelte": "^3.38.3",
+    "sass": "^1.44.0",
+    "set-json-version": "^1.0.7",
+    "svelte": "^3.44.2",
     "svelte-materialify": "^0.3.11",
-    "svelte-preprocess": "^4.7.4",
-    "web-ext": "^6.2.0",
-    "zip-self": "^0.3.2"
-  },
-  "prettier": {
-    "trailingComma": "none",
-    "arrowParens": "avoid",
-    "singleQuote": false,
-    "svelteSortOrder": "scripts-markup-styles"
+    "svelte-preprocess": "^4.9.8",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.2",
+    "web-ext": "^6.6.0",
+    "zip-self": "^0.4.3"
   }
 }
