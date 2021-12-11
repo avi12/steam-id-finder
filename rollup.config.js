@@ -6,46 +6,57 @@ import postcss from "rollup-plugin-postcss";
 import json from "@rollup/plugin-json";
 import commonjs from "@rollup/plugin-commonjs";
 import preprocess from "svelte-preprocess";
+import typescript from "@rollup/plugin-typescript";
 
 const isProduction = !process.env.ROLLUP_WATCH;
 
-function createConfig(filename, useSvelte = false) {
+function createConfig(filename, newDest = "") {
   return {
-    input: `src/${filename}.js`,
+    input: `src/${filename}.ts`,
     output: {
-      format: "esm",
+      format: "cjs",
+      file: `dist/${newDest}${filename}.js`,
+      globals: ["steamid"]
+    },
+    plugins: [
+      typescript(),
+      json(),
+      commonjs(),
+      isProduction && terser()
+    ],
+    watch: {
+      clearScreen: true
+    }
+  };
+}
+
+function createConfigSvelte(filename) {
+  return {
+    input: `src/${filename}.ts`,
+    output: {
+      format: "cjs",
       file: `dist/build/${filename}.js`
     },
     plugins: [
-      useSvelte && css({ output: "bundle.css" }),
-      useSvelte &&
-        svelte({
-          // enable run-time checks when not in production
-          compilerOptions: {
-            dev: !isProduction
-          },
-          preprocess: preprocess()
-          // we'll extract any component CSS out into
-          // a separate file - better for performance
-        }),
-
+      typescript(),
+      css({ output: "bundle.css" }),
+      svelte({
+        compilerOptions: {
+          dev: !isProduction
+        },
+        preprocess: preprocess()
+      }),
       json(),
-
-      // If you have external dependencies installed from
-      // npm, you'll most likely need these plugins. In
-      // some cases you'll need additional configuration -
-      // consult the documentation for details:
-      // https://github.com/rollup/plugins/tree/master/packages/commonjs
       commonjs(),
       resolve({
         browser: true,
         dedupe: ["svelte"]
       }),
-
-      // If we're building for production (npm run build
-      // instead of npm run dev), minify
       isProduction && terser()
-    ]
+    ],
+    watch: {
+      clearScreen: true
+    }
   };
 }
 
@@ -61,14 +72,14 @@ function createConfigCss(filename) {
       })
     ],
     watch: {
-      clearScreen: false
+      clearScreen: true
     }
   };
 }
 
 export default [
-  createConfig("popup/popup", true),
-  createConfig("scripts/background"),
-  createConfig("scripts/content-script-steam-initialize"),
-  createConfigCss("main")
+  createConfigCss("main"),
+  createConfig("scripts/steam-id-finder-content-script-initialize", "build/"),
+  createConfig("background"),
+  createConfigSvelte("popup/popup")
 ];

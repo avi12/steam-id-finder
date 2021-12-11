@@ -22,8 +22,9 @@ node_modules
 
 # Distribution directory
 dist/build
+dist/background.js
 dist_packed
 
 # Credentials
-dist/data/api-key.json
+src/data/api-key.json
 *.env

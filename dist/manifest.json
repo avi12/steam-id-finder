@@ -1,8 +1,8 @@
 {
   "name": "Steam ID Finder",
   "description": "Display Steam users' IDs. One-click to copy.",
-  "manifest_version": 2,
-  "version": "0.2.4",
+  "manifest_version": 3,
+  "version": "1.0.0",
   "icons": {
     "16": "images/icon-16.png",
     "19": "images/icon-19.png",
@@ -14,7 +14,7 @@
     "96": "images/icon-96.png",
     "128": "images/icon-128.png"
   },
-  "browser_action": {
+  "action": {
     "default_title": "Steam ID Finder Settings",
     "default_popup": "popup.html",
     "default_icon": {
@@ -31,34 +31,16 @@
   },
   "content_scripts": [
     {
-      "matches": [
-        "https://steamcommunity.com/id/*",
-        "https://steamcommunity.com/profiles/*"
-      ],
-      "js": [
-        "build/scripts/content-script-steam-initialize.js"
-      ],
-      "css": [
-        "build/styles-injected/main.css"
-      ]
+      "matches": ["https://steamcommunity.com/id/*", "https://steamcommunity.com/profiles/*"],
+      "js": ["build/scripts/steam-id-finder-content-script-initialize.js"],
+      "css": ["build/styles-injected/main.css"]
     }
   ],
   "background": {
-    "scripts": [
-      "build/scripts/background.js"
-    ],
-    "persistent": false
+    "service_worker": "background.js"
   },
-  "permissions": [
-    "https://api.steampowered.com/ISteamUser/*",
-    "contextMenus",
-    "storage"
-  ],
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "Steam_ID_Finder@gmail.com"
-    }
-  },
+  "permissions": ["contextMenus", "storage"],
+  "host_permissions": ["https://api.steampowered.com/ISteamUser/*"],
   "applications": {
     "gecko": {
       "id": "Steam_ID_Finder@gmail.com"
