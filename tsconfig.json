@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "resolveJsonModule": true,
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": false,
+    "target": "ES2021",
+    "sourceMap": false,
+    "types": ["svelte", "chrome"]
+  },
+  "exclude": ["node_modules", "dist"],
+  "include": ["src/**/*"],
+  "extends": "@tsconfig/svelte/tsconfig.json"
+}
