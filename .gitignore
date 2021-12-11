@@ -21,7 +21,8 @@ node_modules
 .sass-cache
 
 # Distribution directory
-dist
+dist/build
+dist/background.js
 dist_packed
 
 # Credentials
