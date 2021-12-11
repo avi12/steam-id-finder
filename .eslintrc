@@ -6,9 +6,9 @@
   },
   "rules": {
     "arrow-parens": ["warn", "as-needed"],
-    "prefer-const": "warn",
     "no-async-promise-executor": "off",
     "semi": "warn",
+    "prefer-const": "warn",
     "quotes": [
       "warn",
       "double",
