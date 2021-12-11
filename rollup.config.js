@@ -29,6 +29,7 @@ function createConfig(filename, newDest = "") {
     }
   };
 }
+
 function createConfigSvelte(filename) {
   return {
     input: `src/${filename}.ts`,
