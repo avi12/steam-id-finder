@@ -16,7 +16,6 @@
     "pack-self": "zip-self -o dist_packed/steam-id-finder-{version}-source.zip",
     "build-pack": "pnpm run build && pnpm run pack && pnpm run pack-self",
     "build-for-firefox": "build-for-browser --i dist_packed/steam-id-finder-{version}.zip --browser=firefox",
-    "build-for-opera": "build-for-browser --i dist_packed/steam-id-finder-{version}.zip --browser=opera",
     "webext-incompat-fix": "webext-store-incompat-fixer -i dist_packed/steam-id-finder-{version}.zip -s chrome,edge,firefox,opera",
     "set-version": "set-json-version -f package.json dist/manifest.json -v",
     "validate": "svelte-check",
