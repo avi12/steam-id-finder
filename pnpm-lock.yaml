@@ -30,7 +30,7 @@ specifiers:
   sass: ^1.51.0
   set-json-version: ^1.0.7
   steamid: ^2.0.0
-  svelte: ^3.48.0
+  svelte: ^3.55.0
   svelte-materialify: ^0.3.11
   svelte-preprocess: ^4.10.6
   tslib: ^2.4.0
@@ -53,27 +53,27 @@ devDependencies:
   '@types/chrome': 0.0.186
   '@typescript-eslint/eslint-plugin': 5.30.4_aye54oa67ofzrialru76zxwshi
   '@typescript-eslint/parser': 5.30.4_4x5o4skxv6sl53vpwefgt23khm
-  build-for-browser: github.com/avi12/build-for-browser/6288ad2e805e91c2dc701f43d4fb14c20a8e52e1
+  build-for-browser: github.com/avi12/build-for-browser/d719d7b7fbbf16593f38e3f18362b9f29c76f2c5
   eslint: 8.19.0
   eslint-config-prettier: 8.5.0_eslint@8.19.0
   eslint-plugin-import: 2.26.0_eewxtjj33uq4o73zpcjsegq3l4
   eslint-plugin-node: 11.1.0_eslint@8.19.0
   eslint-plugin-promise: 6.0.0_eslint@8.19.0
-  eslint-plugin-svelte3: 4.0.0_m4jpobot6gi3xtcba7bv5cflma
+  eslint-plugin-svelte3: 4.0.0_7y426xhjnrtcxk5cymxxr34xei
   minimist: 1.2.6
   postcss: 8.4.14
   prettier: 2.7.1
-  prettier-plugin-svelte: 2.7.0_nakrehnrzdf7fdea5k3a4dfy4m
+  prettier-plugin-svelte: 2.7.0_uhw2lhpgcwcu2blwnxkrwkimce
   rollup: 2.75.7
   rollup-plugin-css-only: 3.1.0_rollup@2.75.7
   rollup-plugin-postcss: 4.0.2_postcss@8.4.14
-  rollup-plugin-svelte: 7.1.0_oqvu6r7na5sdokb6fyq7tyqy6i
+  rollup-plugin-svelte: 7.1.0_qbcg5bhsmsy32ukqylsdqjizc4
   rollup-plugin-terser: 7.0.2_rollup@2.75.7
   sass: 1.53.0
   set-json-version: 1.0.7
-  svelte: 3.48.0
-  svelte-materialify: 0.3.11_svelte@3.48.0
-  svelte-preprocess: 4.10.7_yzgb7wkzq6wz6qgj3h2t2u7ppa
+  svelte: 3.55.0
+  svelte-materialify: 0.3.11_svelte@3.55.0
+  svelte-preprocess: 4.10.7_rleesv2ui7p4m2i5vkjsmmy35q
   tslib: 2.4.0
   typescript: 4.7.4
   web-ext: 6.8.0
@@ -1725,14 +1725,14 @@ packages:
       eslint: 8.19.0
     dev: true
 
-  /eslint-plugin-svelte3/4.0.0_m4jpobot6gi3xtcba7bv5cflma:
+  /eslint-plugin-svelte3/4.0.0_7y426xhjnrtcxk5cymxxr34xei:
     resolution: {integrity: sha512-OIx9lgaNzD02+MDFNLw0GEUbuovNcglg+wnd/UY0fbZmlQSz7GlQiQ1f+yX0XvC07XPcDOnFcichqI3xCwp71g==}
     peerDependencies:
       eslint: '>=8.0.0'
       svelte: ^3.2.0
     dependencies:
       eslint: 8.19.0
-      svelte: 3.48.0
+      svelte: 3.55.0
     dev: true
 
   /eslint-scope/5.1.1:
@@ -3909,14 +3909,14 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /prettier-plugin-svelte/2.7.0_nakrehnrzdf7fdea5k3a4dfy4m:
+  /prettier-plugin-svelte/2.7.0_uhw2lhpgcwcu2blwnxkrwkimce:
     resolution: {integrity: sha512-fQhhZICprZot2IqEyoiUYLTRdumULGRvw0o4dzl5jt0jfzVWdGqeYW27QTWAeXhoupEZJULmNoH3ueJwUWFLIA==}
     peerDependencies:
       prettier: ^1.16.4 || ^2.0.0
       svelte: ^3.2.0
     dependencies:
       prettier: 2.7.1
-      svelte: 3.48.0
+      svelte: 3.55.0
     dev: true
 
   /prettier/2.7.1:
@@ -4205,7 +4205,7 @@ packages:
       - ts-node
     dev: true
 
-  /rollup-plugin-svelte/7.1.0_oqvu6r7na5sdokb6fyq7tyqy6i:
+  /rollup-plugin-svelte/7.1.0_qbcg5bhsmsy32ukqylsdqjizc4:
     resolution: {integrity: sha512-vopCUq3G+25sKjwF5VilIbiY6KCuMNHP1PFvx2Vr3REBNMDllKHFZN2B9jwwC+MqNc3UPKkjXnceLPEjTjXGXg==}
     engines: {node: '>=10'}
     peerDependencies:
@@ -4215,7 +4215,7 @@ packages:
       require-relative: 0.8.7
       rollup: 2.75.7
       rollup-pluginutils: 2.8.2
-      svelte: 3.48.0
+      svelte: 3.55.0
     dev: true
 
   /rollup-plugin-terser/7.0.2_rollup@2.75.7:
@@ -4650,15 +4650,15 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /svelte-materialify/0.3.11_svelte@3.48.0:
+  /svelte-materialify/0.3.11_svelte@3.55.0:
     resolution: {integrity: sha512-MLtZtdSOHditOdJOYqlB8s7NxIFRbYKXJzij5s9gz5WVbJFVEqdX2TqOleg4wYeMOujtOCm+/x3RP5YGyzRxIQ==}
     peerDependencies:
       svelte: '>=3.29.4'
     dependencies:
-      svelte: 3.48.0
+      svelte: 3.55.0
     dev: true
 
-  /svelte-preprocess/4.10.7_yzgb7wkzq6wz6qgj3h2t2u7ppa:
+  /svelte-preprocess/4.10.7_rleesv2ui7p4m2i5vkjsmmy35q:
     resolution: {integrity: sha512-sNPBnqYD6FnmdBrUmBCaqS00RyCsCpj2BG58A1JBswNF7b0OKviwxqVrOL/CKyJrLSClrSeqQv5BXNg2RUbPOw==}
     engines: {node: '>= 9.11.2'}
     requiresBuild: true
@@ -4707,12 +4707,12 @@ packages:
       sass: 1.53.0
       sorcery: 0.10.0
       strip-indent: 3.0.0
-      svelte: 3.48.0
+      svelte: 3.55.0
       typescript: 4.7.4
     dev: true
 
-  /svelte/3.48.0:
-    resolution: {integrity: sha512-fN2YRm/bGumvjUpu6yI3BpvZnpIm9I6A7HR4oUNYd7ggYyIwSA/BX7DJ+UXXffLp6XNcUijyLvttbPVCYa/3xQ==}
+  /svelte/3.55.0:
+    resolution: {integrity: sha512-uGu2FVMlOuey4JoKHKrpZFkoYyj0VLjJdz47zX5+gVK5odxHM40RVhar9/iK2YFRVxvfg9FkhfVlR0sjeIrOiA==}
     engines: {node: '>= 8'}
     dev: true
 
@@ -5233,8 +5233,8 @@ packages:
       readable-stream: 3.6.0
     dev: true
 
-  github.com/avi12/build-for-browser/6288ad2e805e91c2dc701f43d4fb14c20a8e52e1:
-    resolution: {tarball: https://codeload.github.com/avi12/build-for-browser/tar.gz/6288ad2e805e91c2dc701f43d4fb14c20a8e52e1}
+  github.com/avi12/build-for-browser/d719d7b7fbbf16593f38e3f18362b9f29c76f2c5:
+    resolution: {tarball: https://codeload.github.com/avi12/build-for-browser/tar.gz/d719d7b7fbbf16593f38e3f18362b9f29c76f2c5}
     name: build-for-browser
     version: 0.0.1
     hasBin: true
@@ -5259,6 +5259,6 @@ packages:
       eslint: 8.19.0
       eslint-plugin-import: 2.26.0_eewxtjj33uq4o73zpcjsegq3l4
       eslint-plugin-node: 11.1.0_eslint@8.19.0
-      eslint-plugin-svelte3: 4.0.0_m4jpobot6gi3xtcba7bv5cflma
+      eslint-plugin-svelte3: 4.0.0_7y426xhjnrtcxk5cymxxr34xei
       typescript: 4.7.4
     dev: true
