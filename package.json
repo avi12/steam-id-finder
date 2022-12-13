@@ -15,7 +15,7 @@
     "pack": "web-ext build --overwrite-dest --artifacts-dir dist_packed --source-dir dist --filename steam-id-finder-{version}.zip",
     "pack-self": "zip-self -o dist_packed/steam-id-finder-{version}-source.zip",
     "build-pack": "pnpm run build && pnpm run pack && pnpm run pack-self",
-    "build-for-firefox": "build-for-browser --i dist_packed/steam-id-finder-{version}.zip --browser=firefox",
+    "build-for-firefox": "build-for-browser --i dist_packed/steam-id-finder-{version}.zip --browser=firefox --source",
     "webext-incompat-fix": "webext-store-incompat-fixer -i dist_packed/steam-id-finder-{version}.zip -s chrome,edge,firefox,opera",
     "set-version": "set-json-version -f package.json dist/manifest.json -v",
     "validate": "svelte-check",
@@ -63,6 +63,6 @@
     "typescript": "^4.6.4",
     "web-ext": "^6.8.0",
     "webext-store-incompat-fixer": "^0.3.1",
-    "zip-self": "^0.4.7"
+    "zip-self": "^0.5.4"
   }
 }
