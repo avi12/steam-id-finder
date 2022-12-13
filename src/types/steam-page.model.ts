@@ -2,7 +2,7 @@
 
 // language=RegExp
 export const RegexPageTypes = {
-  user: "(?:profiles|id)/([^/]+)$",
+  user: "(?:profiles|id)/([^/]+)/?$",
   friendsManager: "(?:profiles|id)/[^/]+/friends/?$"
 } as const;
 

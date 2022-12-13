@@ -2,7 +2,7 @@
   "name": "Steam ID Finder",
   "short_name": "Steam ID",
   "description": "Display Steam users' IDs. One-click to copy.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "manifest_version": 3,
   "author": "avi12",
   "developer": {
